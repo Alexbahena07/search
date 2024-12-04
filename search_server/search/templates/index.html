@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Home - ask485?{% endblock %}
+
+{% block header %}
+<!-- Additional header content (if any) -->
+<p class="pagerank_weight">PageRank Weight Slider</p>
+{% endblock %}
+
+{% block content %}
+<div class="search_bar">
+    <form action="/search" method="get">
+        <input type="text" name="q" placeholder="Search..." required>
+        <div class="pagerank_weight">
+            <label for="pagerank_weight">PageRank Weight</label>
+            <input type="range" id="pagerank_weight" name="pagerank_weight" min="0" max="1" step="0.1" value="0.5">
+        </div>
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<div class="docs">
+    {% if results %}
+        {% for doc in results %}
+            <div class="doc">
+                <a class="doc_url" href="{{ doc.url }}" target="_blank">{{ doc.url }}</a>
+                <h2 class="doc_title">{{ doc.title }}</h2>
+                <p class="doc_summary">{{ doc.summary }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no_results">No results found. Try another query!</p>
+    {% endif %}
+</div>
+{% endblock %}
